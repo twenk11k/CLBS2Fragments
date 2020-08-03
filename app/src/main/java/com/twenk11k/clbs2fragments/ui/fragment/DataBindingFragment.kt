@@ -1,4 +1,4 @@
-package com.twenk11k.clbschallange.ui.fragment
+package com.twenk11k.clbschallange.ui.fragment.DataBindingFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

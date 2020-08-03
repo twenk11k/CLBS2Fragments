@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CLBS2Fragments</string>
+    <string name="feedback_edit_text">Type here</string>
 </resources>

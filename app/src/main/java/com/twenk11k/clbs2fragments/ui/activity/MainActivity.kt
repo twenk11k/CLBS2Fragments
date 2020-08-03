@@ -1,7 +1,7 @@
 package com.twenk11k.clbs2fragments.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.twenk11k.clbs2fragments.R
 
 class MainActivity : AppCompatActivity() {
