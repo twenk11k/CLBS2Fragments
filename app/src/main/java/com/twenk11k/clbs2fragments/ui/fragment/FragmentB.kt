@@ -1,8 +1,10 @@
 package com.twenk11k.clbs2fragments.ui.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +30,19 @@ class FragmentB: DataBindingFragment() {
     ): View? {
         binding = binding(inflater, R.layout.fragment_b, container)
         setViews()
+
         viewModel.getTextLiveData().observe(viewLifecycleOwner, Observer<String> {
-            if(getTextEditText() != it)
-                 editText.setText(it)
+            if(getTextEditText() != it) {
+                editText.setText(it)
+                editText.setSelection(it.length)
+            }
         })
+
+        viewModel.getScrollYLiveData().observe(viewLifecycleOwner, Observer<Int> {
+            if(editText.scrollY != it)
+                editText.scrollTo(editText.scrollX,it)
+        })
+
         return binding.root
     }
 
@@ -52,11 +63,20 @@ class FragmentB: DataBindingFragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("FragmentB",s.toString())
                 if(getTextEditText() != s)
-                    viewModel.select(s.toString())
+                    viewModel.selectText(s.toString())
             }
 
         })
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            editText.setOnScrollChangeListener(
+                (View.OnScrollChangeListener { _, _, scrollY, _, _ ->
+                    viewModel.selectScrollY(scrollY)
+                })
+            )
+        }
     }
 
 }
